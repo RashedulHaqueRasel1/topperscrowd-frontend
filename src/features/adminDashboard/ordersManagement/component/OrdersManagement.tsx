@@ -25,12 +25,16 @@ const statusStyles: Record<string, string> = {
 };
 
 const getCustomerName = (order: Order) => {
-  const fullName = [order.userId.firstName, order.userId.lastName]
+  const fullName = [order.userId?.firstName, order.userId?.lastName]
     .filter(Boolean)
     .join(" ")
     .trim();
 
-  return fullName || order.userId.email;
+  return fullName || order.userId?.email || "Deleted customer";
+};
+
+const getCustomerEmail = (order: Order) => {
+  return order.userId?.email || "No email available";
 };
 
 const getItemTitle = (item: Order["items"][number]) => {
@@ -231,7 +235,7 @@ export default function OrdersManagement() {
                         {getCustomerName(order)}
                       </p>
                       <p className="text-xs text-[#6c6c6c]">
-                        {order.userId.email}
+                        {getCustomerEmail(order)}
                       </p>
                       {order.paypalOrderId && (
                         <p className="mt-1 font-mono text-[11px] text-[#6c6c6c]">

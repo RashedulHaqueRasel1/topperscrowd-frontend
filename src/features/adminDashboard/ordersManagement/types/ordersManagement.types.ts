@@ -63,7 +63,7 @@ export interface OrderUser {
 
 export interface Order {
   _id: string;
-  userId: OrderUser;
+  userId: OrderUser | null;
   items: OrderItem[];
   totalAmount: number;
   paymentStatus: "pending" | "paid" | "cancelled";
